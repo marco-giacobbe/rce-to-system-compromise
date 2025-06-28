@@ -9,8 +9,6 @@ It presents a practical demonstration of an exploitation chain involving:
 - **Privilege Escalation** through kernel-level exploitation
 - **Installation of a persistent backdoor** for post-exploitation access
 
-All components run within a Dockerized lab environmen.
-
 ## Requirements
 
 - **Linux Kernel 5.8.x**  
