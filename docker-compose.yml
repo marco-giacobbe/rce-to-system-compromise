@@ -1,0 +1,35 @@
+services:
+  backend:
+    build: ./victim/backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    networks:
+      - web-net
+      - lab-net
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+    volumes:
+      - ./victim/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./victim/db/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - web-net
+
+  attacker:
+    build: ./attacker
+    container_name: attacker
+    ports:
+      - "1389:1389"
+      - "8000:8000"
+      - "4444:4444"
+    networks:
+      - lab-net
+
+networks:
+  web-net:
+  lab-net:
