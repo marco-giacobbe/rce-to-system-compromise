@@ -8,14 +8,22 @@
 
     <h2>Available Products:</h2>
     <ul>
-	{{product_list}}
+        <li>Smartphone</li>
+        <li>Laptop</li>
+        <li>Headphones</li>
+        <li>Smartwatch</li>
+        <li>Game console</li>
     </ul>
 
     <h2>Order your product:</h2>
     <form action="/submit" method="POST">
         <label>Select product:</label>
         <select name="item">
-		{{product_options}}
+            <option value="Smartphone">Smartphone</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Headphones">Headphones</option>
+            <option value="Smartwatch">Smartwatch</option>
+            <option value="Game console">Game console</option>
         </select>
         <br><br>
         <label>Email:</label>
@@ -26,3 +34,4 @@
 
 </body>
 </html>
+

@@ -27,15 +27,14 @@ public class Backend {
 
 	public static String sanitizeLog(String input) {
 		if (input == null) return "";
-		return input;
 		//return input.replaceAll("(?i)jndi", "[REMOVED]");
+		return input;
 	}
 
 
 	// Handler for index
 	static class DefaultHandler implements HttpHandler {
-		private final Database db = new Database();
-	
+
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
 		    String path = exchange.getRequestURI().getPath();
@@ -43,23 +42,10 @@ public class Backend {
 
 		    if (path.equals("/")) {
 		        // Return index.html
-		        String html = new String(Files.readAllBytes(Paths.get("./resources/index.html")));
-            		List<String[]> products = db.getProducts();
-
-            		StringBuilder productList = new StringBuilder();
-            		StringBuilder productOptions = new StringBuilder();
-            		for (String[] product : products) {
-            			int productId = Integer.parseInt(product[0]);
-            			String productName = product[1];
-                		productList.append("<li>").append(productName).append("</li>");
-                		productOptions.append("<option value=\"").append(productId).append("\">").append(productName).append("</option>");
-            		}
-
-            		html = html.replace("{{product_list}}", productList.toString()).replace("{{product_options}}", productOptions.toString());
-            		byte[] bytes = html.getBytes();
-		        exchange.sendResponseHeaders(200, bytes.length);
+		        byte[] html = Files.readAllBytes(Paths.get("./resources/index.html"));
+		        exchange.sendResponseHeaders(200, html.length);
 		        OutputStream os = exchange.getResponseBody();
-		        os.write(bytes);
+		        os.write(html);
 		        os.close();
 		    } else {
 		        // Return 404
@@ -75,8 +61,7 @@ public class Backend {
 
     // Handler for the form
     static class SubmitHandler implements HttpHandler {
-    	private final Database db = new Database();
-    	
+
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if ("POST".equals(exchange.getRequestMethod())) {
@@ -100,7 +85,6 @@ public class Backend {
 				}
 
                 logger.info(email + " has purchased item: " + item);
-				db.newPurchase(item, email);
                 String response = "Thank you for purchasing!";
                 exchange.sendResponseHeaders(200, response.length());
                 OutputStream os = exchange.getResponseBody();
