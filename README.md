@@ -22,7 +22,7 @@ It presents a practical demonstration of an exploitation chain involving:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/marco-giacobbe/rce-to-full-compromise-demo.git
+git clone https://github.com/marco-giacobbe/rce-to-system-compromise.git
 cd rce-to-full-compromise-demo
 ```
 ### 2. Build and Start the Environment
